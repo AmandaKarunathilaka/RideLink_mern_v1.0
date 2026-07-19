@@ -19,10 +19,16 @@ const app = express();
 app.use(cors({
   origin: [
     'http://localhost:5173',
+    'https://ride-link-mern-v1-0.vercel.app',
     process.env.CLIENT_URL,
   ].filter(Boolean),
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+
+// Handle preflight requests
+app.options('*', cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
