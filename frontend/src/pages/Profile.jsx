@@ -36,8 +36,9 @@ const Profile = () => {
   const fileInputRef     = useRef(null);
 
   const [name,    setName]    = useState(user?.name    || '');
-  const [phone,   setPhone]   = useState(user?.phone   || '');
-  const [saving,  setSaving]  = useState(false);
+  const [phone, setPhone] = useState(
+    user?.phone && user.phone !== 'null' ? user.phone : ''
+  );  const [saving,  setSaving]  = useState(false);
   const [uploading, setUploading] = useState(false);
 
   const [focusedField, setFocusedField] = useState(null);

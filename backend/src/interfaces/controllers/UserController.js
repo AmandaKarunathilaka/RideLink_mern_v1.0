@@ -12,13 +12,15 @@ export const updateProfile = async (req, res, next) => {
       throw new AppError('Name must be at least 2 characters', 400);
     }
 
-    if (phone && !/^(?:\+94|0)?7[0-9]{8}$/.test(phone.replace(/\s/g, ''))) {
+    const cleanPhone = phone && phone.trim() !== '' ? phone.trim() : null;
+
+    if (cleanPhone && !/^(?:\+94|0)?7[0-9]{8}$/.test(cleanPhone.replace(/\s/g, ''))) {
       throw new AppError('Please enter a valid Sri Lankan mobile number', 400);
     }
 
     const updated = await userRepository.update(req.user.id, {
       name:  name.trim(),
-      phone: phone?.trim() || null,
+      phone: cleanPhone,
     });
 
     res.status(200).json({
