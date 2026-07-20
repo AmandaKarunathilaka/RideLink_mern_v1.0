@@ -53,7 +53,7 @@ class MongoUserRepository extends IUserRepository {
     const doc = await UserModel.findByIdAndUpdate(
       id,
       { $set: { ...data } },
-      { new: true }
+      { returnDocument: 'after' }
     );
     return this._toEntity(doc);
   }
