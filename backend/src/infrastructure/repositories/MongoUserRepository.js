@@ -43,12 +43,18 @@ class MongoUserRepository extends IUserRepository {
       email:    user.email,
       password: user.password,
       role:     user.role,
+      phone:    user.phone || null,
+      profileImage: user.profileImage || null,
     });
     return this._toEntity(doc);
   }
 
   async update(id, data) {
-    const doc = await UserModel.findByIdAndUpdate(id, data, { new: true });
+    const doc = await UserModel.findByIdAndUpdate(
+      id,
+      { $set: { ...data } },
+      { new: true }
+    );
     return this._toEntity(doc);
   }
 
