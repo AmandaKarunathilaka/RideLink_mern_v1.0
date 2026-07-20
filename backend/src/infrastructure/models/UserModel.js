@@ -48,6 +48,11 @@ const userSchema = new mongoose.Schema(
       type:    String,
       default: null,
     },
+    phone: {
+      type: String,
+      default: null,
+      trim: true,
+    },
     profileImage: {
       type:    String,
       default: null,

@@ -9,6 +9,7 @@ class User {
     licenseStatus = 'not_uploaded',
     profileImage = null,
     licenseDocument = null,
+    phone = null,
     rating = 0,
     totalReviews = 0,
     createdAt = new Date(),
@@ -22,6 +23,7 @@ class User {
     this.licenseStatus = licenseStatus;
     this.profileImage = profileImage;
     this.licenseDocument = licenseDocument;
+    this.phone = phone;
     this.rating = rating;
     this.totalReviews = totalReviews;
     this.createdAt = createdAt;
@@ -68,6 +70,7 @@ class User {
       isVerified:    this.isVerified,
       licenseStatus: this.licenseStatus,
       profileImage:  this.profileImage,
+      phone:         this.phone,
       rating:        this.rating,
       totalReviews:  this.totalReviews,
       createdAt:     this.createdAt,

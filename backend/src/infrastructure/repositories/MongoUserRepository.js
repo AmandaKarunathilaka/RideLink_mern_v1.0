@@ -16,6 +16,7 @@ class MongoUserRepository extends IUserRepository {
       licenseStatus:   doc.licenseStatus,
       licenseDocument: doc.licenseDocument,
       profileImage:    doc.profileImage,
+      phone:           doc.phone,
       rating:          doc.rating,
       totalReviews:    doc.totalReviews,
       createdAt:       doc.createdAt,
