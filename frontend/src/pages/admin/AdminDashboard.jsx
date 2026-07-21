@@ -149,6 +149,18 @@ const AdminDashboard = () => {
     default:   { bg: '#f1f5f9', color: '#64748b', border: '#e2e8f0', label: 'Unknown' },
   };
 
+  // Helper to validate if PDF data is complete
+  const isValidPdfData = (data) => {
+    if (!data) return false;
+    // Check if it's a valid base64 PDF string
+    if (data.startsWith('data:application/pdf')) {
+      // Extract base64 part and check length
+      const base64Part = data.split(',')[1];
+      return base64Part && base64Part.length > 100; // Ensure it's not truncated
+    }
+    return false;
+  };
+
   return (
     <div style={{ ...fontBody, background: '#f1f5f9', minHeight: '100vh', paddingTop: 100, paddingBottom: 64 }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
@@ -445,7 +457,7 @@ const AdminDashboard = () => {
       {/* ── Document Preview Modal ── */}
       {previewDoc && (
         <div onClick={() => setPreviewDoc(null)} style={{ position: 'fixed', inset: 0, background: 'rgba(15,23,42,0.6)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
-          <div onClick={e => e.stopPropagation()} style={{ background: 'white', borderRadius: 16, padding: 24, maxWidth: 560, width: '100%', maxHeight: '85vh', overflowY: 'auto' }}>
+          <div onClick={e => e.stopPropagation()} style={{ background: 'white', borderRadius: 16, padding: 24, maxWidth: 600, width: '100%', maxHeight: '85vh', overflowY: 'auto' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
               <h3 style={{ ...fontHead, fontSize: 16, fontWeight: 700, color: '#0f172a' }}>{previewDoc?.name}'s License</h3>
               <button onClick={() => setPreviewDoc(null)} style={{ background: 'none', border: 'none', fontSize: 20, cursor: 'pointer', color: '#94a3b8' }}>×</button>
@@ -453,17 +465,124 @@ const AdminDashboard = () => {
 
             {previewDoc?.licenseDocument ? (
               previewDoc.licenseDocument.startsWith('data:application/pdf') ? (
-                <div style={{ textAlign: 'center', padding: 40 }}>
+                <div style={{ textAlign: 'center', padding: 20 }}>
                   <div style={{ fontSize: 48, marginBottom: 12 }}>📄</div>
                   
-                  <a
-                    href={previewDoc.licenseDocument}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ color: '#2563eb', fontWeight: 500, fontSize: 14 }}
-                  >
-                    Open PDF in new tab
-                  </a>
+                  {isValidPdfData(previewDoc.licenseDocument) ? (
+                    <>
+                      <p style={{ color: '#64748b', marginBottom: 16, fontSize: 14 }}>
+                        This PDF document will open in a new tab
+                      </p>
+                      
+                      {/* Option 1: Direct link to open PDF */}
+                      <a
+                        href={previewDoc.licenseDocument}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          display: 'inline-block',
+                          padding: '12px 32px',
+                          background: '#2563eb',
+                          color: 'white',
+                          borderRadius: 10,
+                          textDecoration: 'none',
+                          fontWeight: 500,
+                          marginBottom: 12,
+                          transition: 'all 0.2s',
+                          boxShadow: '0 4px 12px rgba(37,99,235,0.3)'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.target.style.transform = 'translateY(-2px)';
+                          e.target.style.boxShadow = '0 6px 20px rgba(37,99,235,0.5)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.target.style.transform = 'translateY(0)';
+                          e.target.style.boxShadow = '0 4px 12px rgba(37,99,235,0.3)';
+                        }}
+                      >
+                        📄 Open PDF in new tab
+                      </a>
+                      
+                      <br />
+                      
+                      {/* Option 2: Try to embed PDF using iframe */}
+                      <button
+                        onClick={() => {
+                          const container = document.getElementById('pdf-embed-container');
+                          if (container) {
+                            // Clear previous content
+                            container.innerHTML = '';
+                            
+                            // Create iframe
+                            const iframe = document.createElement('iframe');
+                            iframe.src = previewDoc.licenseDocument;
+                            iframe.style.width = '100%';
+                            iframe.style.height = '400px';
+                            iframe.style.border = '1px solid #e2e8f0';
+                            iframe.style.borderRadius = '8px';
+                            iframe.style.marginTop = '12px';
+                            iframe.style.background = '#f8faff';
+                            
+                            container.appendChild(iframe);
+                            
+                            // Show download option as well
+                            const downloadLink = document.createElement('a');
+                            downloadLink.href = previewDoc.licenseDocument;
+                            downloadLink.download = `${previewDoc.name}-license.pdf`;
+                            downloadLink.style.display = 'inline-block';
+                            downloadLink.style.marginTop = '12px';
+                            downloadLink.style.padding = '8px 16px';
+                            downloadLink.style.background = '#f1f5f9';
+                            downloadLink.style.border = '1px solid #e2e8f0';
+                            downloadLink.style.borderRadius = '8px';
+                            downloadLink.style.textDecoration = 'none';
+                            downloadLink.style.color = '#374151';
+                            downloadLink.style.fontSize = '13px';
+                            downloadLink.textContent = '💾 Download PDF';
+                            
+                            container.appendChild(downloadLink);
+                            
+                            toast.success('PDF embedded successfully');
+                          }
+                        }}
+                        style={{
+                          padding: '8px 20px',
+                          background: '#f8faff',
+                          border: '1.5px solid #e2e8f0',
+                          borderRadius: 8,
+                          cursor: 'pointer',
+                          fontSize: 13,
+                          color: '#374151',
+                          marginTop: 8,
+                          fontFamily: 'DM Sans, sans-serif',
+                          transition: 'all 0.2s'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.target.style.background = '#f1f5f9';
+                          e.target.style.borderColor = '#2563eb';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.target.style.background = '#f8faff';
+                          e.target.style.borderColor = '#e2e8f0';
+                        }}
+                      >
+                        🔍 Try to embed PDF here
+                      </button>
+                      
+                      {/* Container for embedded PDF */}
+                      <div id="pdf-embed-container" style={{ marginTop: 16 }}></div>
+                    </>
+                  ) : (
+                    <div style={{ textAlign: 'center', padding: 20 }}>
+                      <div style={{ fontSize: 48, marginBottom: 12 }}>⚠️</div>
+                      <p style={{ color: '#ef4444', fontSize: 14, marginBottom: 8 }}>
+                        The PDF data appears to be incomplete or corrupted.
+                      </p>
+                      <p style={{ color: '#64748b', fontSize: 13 }}>
+                        Please ask the driver to re-upload their license document.
+                      </p>
+                    </div>
+                  )}
                 </div>
               ) : previewDoc.licenseDocument.startsWith('data:') ? (
                 // Base64 image
@@ -484,6 +603,25 @@ const AdminDashboard = () => {
               )
             ) : (
               <p style={{ color: '#94a3b8', textAlign: 'center', padding: 40 }}>No document found</p>
+            )}
+            
+            {/* Debug info - remove in production */}
+            {previewDoc?.licenseDocument && previewDoc.licenseDocument.startsWith('data:application/pdf') && (
+              <div style={{ 
+                marginTop: 16, 
+                padding: 12, 
+                background: '#f8faff', 
+                borderRadius: 8,
+                border: '1px solid #e2e8f0',
+                fontSize: 11,
+                color: '#64748b',
+                wordBreak: 'break-all',
+                maxHeight: 100,
+                overflowY: 'auto'
+              }}>
+                <strong>Debug:</strong> PDF data length: {previewDoc.licenseDocument.length} characters
+                {isValidPdfData(previewDoc.licenseDocument) ? ' ✅ Valid' : ' ⚠️ May be truncated'}
+              </div>
             )}
           </div>
         </div>

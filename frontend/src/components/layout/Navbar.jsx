@@ -333,12 +333,20 @@ const Navbar = () => {
                   style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '5px 10px' }}
                 >
                   <div className="rl-nav-user-avatar" style={{ padding: 0, overflow: 'hidden' }}>
-                    {user?.profileImage ? (
-                      <img
-                        src={`${import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000'}/${user.profileImage.replace(/\\/g, '/')}`}
-                        alt="Profile"
-                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                      />
+                    {user?.profileImage && user.profileImage !== 'null' ? (
+                      user.profileImage.startsWith('data:') ? (
+                        <img
+                          src={user.profileImage}
+                          alt="Profile"
+                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        />
+                      ) : (
+                        <img
+                          src={`${import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000'}/${user.profileImage.replace(/\\/g, '/')}`}
+                          alt="Profile"
+                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        />
+                      )
                     ) : (
                       user?.name?.charAt(0).toUpperCase()
                     )}
