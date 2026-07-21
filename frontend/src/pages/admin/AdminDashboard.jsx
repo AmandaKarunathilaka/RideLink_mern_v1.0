@@ -580,26 +580,6 @@ const AdminDashboard = () => {
             ) : (
               <p style={{ color: '#94a3b8', textAlign: 'center', padding: 40 }}>No document found</p>
             )}
-            
-            {/* Debug info */}
-            {previewDoc?.licenseDocument && (
-              <div style={{ 
-                marginTop: 16, 
-                padding: 12, 
-                background: '#f8faff', 
-                borderRadius: 8,
-                border: '1px solid #e2e8f0',
-                fontSize: 11,
-                color: '#64748b',
-                wordBreak: 'break-all',
-                maxHeight: 80,
-                overflowY: 'auto'
-              }}>
-                <strong>Debug:</strong> 
-                {' '}Type: {isPdfData(previewDoc.licenseDocument) ? 'PDF' : 'Other'}
-                {' '}| Length: {previewDoc.licenseDocument.length} characters
-              </div>
-            )}
           </div>
         </div>
       )}
