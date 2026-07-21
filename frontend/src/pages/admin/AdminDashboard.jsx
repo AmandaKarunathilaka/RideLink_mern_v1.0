@@ -177,6 +177,31 @@ const AdminDashboard = () => {
     return base64Part && base64Part.length > 100; // Ensure it's not truncated
   };
 
+  // Function to open PDF directly
+  const openPdfDirectly = (pdfDataUrl) => {
+    try {
+      const base64Data = pdfDataUrl.split(',')[1];
+      const binaryData = atob(base64Data);
+      const arrayBuffer = new ArrayBuffer(binaryData.length);
+      const uint8Array = new Uint8Array(arrayBuffer);
+      for (let i = 0; i < binaryData.length; i++) {
+        uint8Array[i] = binaryData.charCodeAt(i);
+      }
+      const blob = new Blob([uint8Array], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      
+      // Open in new tab
+      window.open(url, '_blank');
+      
+      // Clean up the URL after a delay
+      setTimeout(() => URL.revokeObjectURL(url), 10000);
+      
+      toast.success('PDF opened successfully');
+    } catch (error) {
+      toast.error('Failed to open PDF: ' + error.message);
+    }
+  };
+
   return (
     <div style={{ ...fontBody, background: '#f1f5f9', minHeight: '100vh', paddingTop: 100, paddingBottom: 64 }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
@@ -497,24 +522,24 @@ const AdminDashboard = () => {
                       {isValid ? (
                         <>
                           <p style={{ color: '#64748b', marginBottom: 16, fontSize: 14 }}>
-                            This PDF will open in a new tab
+                            Click the button below to view the PDF
                           </p>
                           
-                          <a
-                            href={pdfDataUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                          <button
+                            onClick={() => openPdfDirectly(pdfDataUrl)}
                             style={{
                               display: 'inline-block',
                               padding: '12px 32px',
                               background: '#2563eb',
                               color: 'white',
+                              border: 'none',
                               borderRadius: 10,
-                              textDecoration: 'none',
                               fontWeight: 500,
-                              marginBottom: 12,
+                              fontSize: 14,
+                              cursor: 'pointer',
                               transition: 'all 0.2s',
-                              boxShadow: '0 4px 12px rgba(37,99,235,0.3)'
+                              boxShadow: '0 4px 12px rgba(37,99,235,0.3)',
+                              fontFamily: 'DM Sans, sans-serif'
                             }}
                             onMouseEnter={(e) => {
                               e.target.style.transform = 'translateY(-2px)';
@@ -525,70 +550,8 @@ const AdminDashboard = () => {
                               e.target.style.boxShadow = '0 4px 12px rgba(37,99,235,0.3)';
                             }}
                           >
-                            📄 Open PDF in new tab
-                          </a>
-                          
-                          <br />
-                          
-                          <button
-                            onClick={() => {
-                              // Create a blob URL for the PDF
-                              try {
-                                const base64Data = pdfDataUrl.split(',')[1];
-                                const binaryData = atob(base64Data);
-                                const arrayBuffer = new ArrayBuffer(binaryData.length);
-                                const uint8Array = new Uint8Array(arrayBuffer);
-                                for (let i = 0; i < binaryData.length; i++) {
-                                  uint8Array[i] = binaryData.charCodeAt(i);
-                                }
-                                const blob = new Blob([uint8Array], { type: 'application/pdf' });
-                                const url = URL.createObjectURL(blob);
-                                
-                                // Open in new tab
-                                window.open(url, '_blank');
-                                
-                                toast.success('PDF opened successfully');
-                              } catch (error) {
-                                toast.error('Failed to open PDF: ' + error.message);
-                              }
-                            }}
-                            style={{
-                              padding: '8px 20px',
-                              background: '#f8faff',
-                              border: '1.5px solid #e2e8f0',
-                              borderRadius: 8,
-                              cursor: 'pointer',
-                              fontSize: 13,
-                              color: '#374151',
-                              marginTop: 8,
-                              fontFamily: 'DM Sans, sans-serif',
-                              transition: 'all 0.2s'
-                            }}
-                            onMouseEnter={(e) => {
-                              e.target.style.background = '#f1f5f9';
-                              e.target.style.borderColor = '#2563eb';
-                            }}
-                            onMouseLeave={(e) => {
-                              e.target.style.background = '#f8faff';
-                              e.target.style.borderColor = '#e2e8f0';
-                            }}
-                          >
-                            🔍 Open PDF directly
+                            📄 View PDF
                           </button>
-                          
-                          <div style={{ marginTop: 16 }}>
-                            <iframe
-                              src={pdfDataUrl}
-                              style={{
-                                width: '100%',
-                                height: '400px',
-                                border: '1px solid #e2e8f0',
-                                borderRadius: '8px',
-                                background: '#f8faff'
-                              }}
-                              title="PDF Preview"
-                            />
-                          </div>
                         </>
                       ) : (
                         <div style={{ textAlign: 'center', padding: 20 }}>
@@ -597,9 +560,6 @@ const AdminDashboard = () => {
                             The PDF data appears to be incomplete or corrupted.
                           </p>
                           <p style={{ color: '#64748b', fontSize: 13 }}>
-                            Data length: {pdfDataUrl?.length || 0} characters
-                          </p>
-                          <p style={{ color: '#64748b', fontSize: 13, marginTop: 8 }}>
                             Please ask the driver to re-upload their license document.
                           </p>
                         </div>
