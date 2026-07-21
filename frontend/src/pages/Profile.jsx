@@ -148,9 +148,9 @@ const Profile = () => {
             {/* Avatar */}
             <div style={{ position: 'relative', flexShrink: 0 }}>
               
-              {user?.profileImage ? (
+              {user?.profileImage && user.profileImage !== 'null' && user.profileImage.startsWith('data:') ? (
                 <img
-                  src={user.profileImage}  // base64 works directly as src
+                  src={user.profileImage}
                   alt="Profile"
                   style={{ width: 80, height: 80, borderRadius: '50%', objectFit: 'cover', border: '3px solid #e8edf5' }}
                 />
