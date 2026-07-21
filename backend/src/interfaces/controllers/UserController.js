@@ -38,8 +38,13 @@ export const uploadProfileImage = async (req, res, next) => {
   try {
     if (!req.file) throw new AppError('Please upload an image', 400);
 
+    // Convert to base64
+    const base64  = req.file.buffer.toString('base64');
+    const mimeType = req.file.mimetype;
+    const dataURI = `data:${mimeType};base64,${base64}`;
+
     const updated = await userRepository.update(req.user.id, {
-      profileImage: req.file.path,
+      profileImage: dataURI,
     });
 
     res.status(200).json({

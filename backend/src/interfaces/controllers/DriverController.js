@@ -13,10 +13,15 @@ export const uploadLicense = async (req, res, next) => {
       });
     }
 
+    // Convert buffer to base64 data URI
+    const base64 = req.file.buffer.toString('base64');
+    const mimeType = req.file.mimetype;
+    const dataURI = `data:${mimeType};base64,${base64}`;
+
     const useCase = new UploadLicense(userRepository);
     const user    = await useCase.execute(
       req.user.id,
-      req.file.path,
+      dataURI,              // ← save base64 string instead of file path
       req.file.originalname,
     );
 
@@ -24,7 +29,7 @@ export const uploadLicense = async (req, res, next) => {
       success:       true,
       message:       'License uploaded successfully. Waiting for admin approval.',
       licenseStatus: user.licenseStatus,
-      user:          user.toSafeObject(), // ← ADD THIS
+      user:          user.toSafeObject(),
     });
   } catch (error) {
     next(error);

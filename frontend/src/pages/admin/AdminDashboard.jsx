@@ -443,27 +443,32 @@ const AdminDashboard = () => {
       </div>
 
       {/* ── Document Preview Modal ── */}
-      {previewDoc && (
-        <div onClick={() => setPreviewDoc(null)} style={{ position: 'fixed', inset: 0, background: 'rgba(15,23,42,0.6)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
-          <div onClick={e => e.stopPropagation()} style={{ background: 'white', borderRadius: 16, padding: 24, maxWidth: 560, width: '100%', maxHeight: '85vh', overflowY: 'auto' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-              <h3 style={{ ...fontHead, fontSize: 16, fontWeight: 700, color: '#0f172a' }}>{previewDoc.name}'s License</h3>
-              <button onClick={() => setPreviewDoc(null)} style={{ background: 'none', border: 'none', fontSize: 20, cursor: 'pointer', color: '#94a3b8' }}>×</button>
-            </div>
-            {previewDoc.licenseDocument ? (
-              previewDoc.licenseDocument.endsWith('.pdf') ? (
-                <div style={{ textAlign: 'center', padding: 40 }}>
-                  <div style={{ fontSize: 48, marginBottom: 12 }}>📄</div>
-                  <a href={`${import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000'}/${previewDoc.licenseDocument.replace(/\\/g,'/')}`} target="_blank" rel="noopener noreferrer" style={{ color: '#2563eb', fontWeight: 500, fontSize: 14 }}>Open PDF in new tab</a>
-                </div>
-              ) : (
-                <img src={`${import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000'}/${previewDoc.licenseDocument.replace(/\\/g,'/')}`} alt="License" style={{ width: '100%', borderRadius: 10 }} />
-              )
-            ) : (
-              <p style={{ color: '#94a3b8', textAlign: 'center', padding: 40 }}>No document found</p>
-            )}
+      {previewDoc.licenseDocument ? (
+        previewDoc.licenseDocument.startsWith('data:application/pdf') ? (
+          // PDF — open in new tab
+          <div style={{ textAlign: 'center', padding: 40 }}>
+            <div style={{ fontSize: 48, marginBottom: 12 }}>📄</div>
+            <a
+              href={previewDoc.licenseDocument}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: '#2563eb', fontWeight: 500, fontSize: 14 }}
+            >
+              Open PDF in new tab
+            </a>
           </div>
-        </div>
+        ) : (
+          // Image — show directly
+          <img
+            src={previewDoc.licenseDocument}
+            alt="License document"
+            style={{ width: '100%', borderRadius: 10 }}
+          />
+        )
+      ) : (
+        <p style={{ color: '#94a3b8', textAlign: 'center', padding: 40 }}>
+          No document found
+        </p>
       )}
 
       {/* ── Reject Modal ── */}

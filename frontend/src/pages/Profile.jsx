@@ -147,17 +147,19 @@ const Profile = () => {
           <div style={{ display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
             {/* Avatar */}
             <div style={{ position: 'relative', flexShrink: 0 }}>
+              
               {user?.profileImage ? (
                 <img
-                  src={`${import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000'}/${user.profileImage.replace(/\\/g, '/')}`}
+                  src={user.profileImage}  // base64 works directly as src
                   alt="Profile"
                   style={{ width: 80, height: 80, borderRadius: '50%', objectFit: 'cover', border: '3px solid #e8edf5' }}
                 />
               ) : (
-                <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'linear-gradient(135deg,#2563eb,#1d4ed8)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 30, fontWeight: 700, ...fontHead }}>
+                <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'linear-gradient(135deg,#2563eb,#1d4ed8)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 30, fontWeight: 700, fontFamily: 'Syne,sans-serif' }}>
                   {user?.name?.charAt(0).toUpperCase() || '?'}
                 </div>
               )}
+
               <button
                 onClick={() => fileInputRef.current?.click()}
                 disabled={uploading}
