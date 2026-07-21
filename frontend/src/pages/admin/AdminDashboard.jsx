@@ -152,9 +152,7 @@ const AdminDashboard = () => {
   // Helper to detect if data is PDF
   const isPdfData = (data) => {
     if (!data) return false;
-    // Check for PDF magic number in base64
     if (data.startsWith('data:application/pdf')) return true;
-    // Check if it's base64 PDF (starts with JVBER for PDF)
     if (typeof data === 'string' && data.startsWith('JVBERi')) return true;
     return false;
   };
@@ -172,9 +170,8 @@ const AdminDashboard = () => {
     if (!data) return false;
     const pdfData = getPdfDataUrl(data);
     if (!pdfData) return false;
-    // Extract base64 part and check length
     const base64Part = pdfData.split(',')[1] || data;
-    return base64Part && base64Part.length > 100; // Ensure it's not truncated
+    return base64Part && base64Part.length > 100;
   };
 
   // Function to open PDF directly
@@ -190,10 +187,8 @@ const AdminDashboard = () => {
       const blob = new Blob([uint8Array], { type: 'application/pdf' });
       const url = URL.createObjectURL(blob);
       
-      // Open in new tab
       window.open(url, '_blank');
       
-      // Clean up the URL after a delay
       setTimeout(() => URL.revokeObjectURL(url), 10000);
       
       toast.success('PDF opened successfully');
@@ -345,7 +340,6 @@ const AdminDashboard = () => {
                     </thead>
                     <tbody>
                       {filteredRides.map(ride => {
-                        // Determine effective status for display
                         const effectiveStatus = isEffectivelyCompleted(ride) ? 'completed' : ride.status;
                         return (
                           <tr key={ride.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
@@ -369,7 +363,6 @@ const AdminDashboard = () => {
                               {statusBadge(effectiveStatus, rideStatusMap)}
                             </td>
                             <td style={{ padding: '12px 16px' }}>
-                              {/* Only show cancel for active future rides */}
                               {ride.status === 'active' && ride.date >= today && (
                                 cancelConfirmId === ride.id ? (
                                   <div style={{ display: 'flex', gap: 6 }}>
@@ -498,7 +491,7 @@ const AdminDashboard = () => {
       {/* ── Document Preview Modal ── */}
       {previewDoc && (
         <div onClick={() => setPreviewDoc(null)} style={{ position: 'fixed', inset: 0, background: 'rgba(15,23,42,0.6)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
-          <div onClick={e => e.stopPropagation()} style={{ background: 'white', borderRadius: 16, padding: 24, maxWidth: 700, width: '100%', maxHeight: '85vh', overflowY: 'auto' }}>
+          <div onClick={e => e.stopPropagation()} style={{ background: 'white', borderRadius: 16, padding: 24, maxWidth: 600, width: '100%', maxHeight: '85vh', overflowY: 'auto' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
               <h3 style={{ ...fontHead, fontSize: 16, fontWeight: 700, color: '#0f172a' }}>{previewDoc?.name}'s License</h3>
               <button onClick={() => setPreviewDoc(null)} style={{ background: 'none', border: 'none', fontSize: 20, cursor: 'pointer', color: '#94a3b8' }}>×</button>
@@ -506,7 +499,6 @@ const AdminDashboard = () => {
 
             {previewDoc?.licenseDocument ? (
               (() => {
-                // Check if it's PDF data
                 const isPdf = isPdfData(previewDoc.licenseDocument);
                 const pdfDataUrl = isPdf ? getPdfDataUrl(previewDoc.licenseDocument) : null;
                 const isValid = isPdf ? isValidPdfData(pdfDataUrl) : false;
@@ -528,7 +520,6 @@ const AdminDashboard = () => {
                           <button
                             onClick={() => openPdfDirectly(pdfDataUrl)}
                             style={{
-                              display: 'inline-block',
                               padding: '12px 32px',
                               background: '#2563eb',
                               color: 'white',
@@ -554,7 +545,7 @@ const AdminDashboard = () => {
                           </button>
                         </>
                       ) : (
-                        <div style={{ textAlign: 'center', padding: 20 }}>
+                        <div>
                           <div style={{ fontSize: 48, marginBottom: 12 }}>⚠️</div>
                           <p style={{ color: '#ef4444', fontSize: 14, marginBottom: 8 }}>
                             The PDF data appears to be incomplete or corrupted.
@@ -567,7 +558,6 @@ const AdminDashboard = () => {
                     </div>
                   );
                 } else if (previewDoc.licenseDocument.startsWith('data:')) {
-                  // Other data URL (image)
                   return (
                     <img
                       src={previewDoc.licenseDocument}
@@ -576,7 +566,6 @@ const AdminDashboard = () => {
                     />
                   );
                 } else {
-                  // Old local path or unknown format
                   return (
                     <div style={{ textAlign: 'center', padding: 40 }}>
                       <div style={{ fontSize: 48, marginBottom: 12 }}>⚠️</div>
@@ -609,7 +598,6 @@ const AdminDashboard = () => {
                 <strong>Debug:</strong> 
                 {' '}Type: {isPdfData(previewDoc.licenseDocument) ? 'PDF' : 'Other'}
                 {' '}| Length: {previewDoc.licenseDocument.length} characters
-                {' '}| Preview: {previewDoc.licenseDocument.substring(0, 50)}...
               </div>
             )}
           </div>
