@@ -176,6 +176,7 @@ RideLink/
 │   └── .env                                   # VITE_API_URL
 │
 ├── package.json                               # Root — concurrently scripts
+├── docs/
 └── README.md
 ```
 
