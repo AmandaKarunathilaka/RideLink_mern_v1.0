@@ -1,0 +1,424 @@
+{
+  "info": {
+    "_postman_id": "7808183e-f068-4a76-9418-a38b8cac2690",
+    "name": "Ride Link",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "46889887",
+    "_collection_link": "https://go.postman.co/collection/46889887-7808183e-f068-4a76-9418-a38b8cac2690?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/health",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "health"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Register User",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Andrew\",\r\n  \"email\": \"andrew.charles@ridelink.com\",\r\n  \"password\": \"Andrew!675\",\r\n  \"role\": \"driver\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login User",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"amanda@gmail.com\",\r\n  \"password\": \"Test1234\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Current User",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMzBjMDI2N2E5MDA3ZGRjMTQxZTU2MiIsImVtYWlsIjoiYW1hbmRhQGdtYWlsLmNvbSIsInJvbGUiOiJwYXNzZW5nZXIiLCJpYXQiOjE3ODE2MTk0OTgsImV4cCI6MTc4MjIyNDI5OH0.fpMZfhg1IV28EE3i8-stqUfPqsD9Dmp8Xgn9IV-rE9I",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/me",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "me"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Upload License",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/driver/upload-license",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "driver",
+            "upload-license"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Post a ride",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{auth_secret_0sbm}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"origin\": \"Colombo\",\r\n  \"destination\": \"Kandy\",\r\n  \"date\": \"2026-07-26\",\r\n  \"time\": \"07:00 AM\",\r\n  \"totalSeats\": 3,\r\n  \"price\": 850,\r\n  \"carModel\": \"Toyota Prius\",\r\n  \"notes\": \"AC available, no smoking\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/rides",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "rides"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "book a ride",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{supabase_service_role_api_key_0mr2}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"rideId\": \"6a40216ef583820d8e72c1db\",\r\n    \"seatBooked\": 2\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/bookings",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "bookings"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add review",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{auth_secret_03o4}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"bookingId\": \"6a4f4582c54e004f810a68ce\",\r\n  \"rating\": 5,\r\n  \"comment\": \"Great driver, very punctual!\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/reviews",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "reviews"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get driver review",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/reviews/driver/6a329edf59311a443c1511d3",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "reviews",
+            "driver",
+            "6a329edf59311a443c1511d3"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "check login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\":\"amanda@gmail.com\",\r\n    \"password\":\"Test1234\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://ridelink-backend.onrender.com/api/auth/login",
+          "protocol": "https",
+          "host": [
+            "ridelink-backend",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Check phone number",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{supabase_service_role_api_key_07wg}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Amanda Karunathilaka\",\r\n  \"phone\": \"0771234567\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://ridelink-backend.onrender.com/api/users/profile",
+          "protocol": "https",
+          "host": [
+            "ridelink-backend",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "users",
+            "profile"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "auth_secret_14di",
+      "secret": true
+    },
+    {
+      "key": "supabase_service_role_api_key_0j0h",
+      "secret": true
+    },
+    {
+      "key": "auth_secret_17nm",
+      "secret": true
+    },
+    {
+      "key": "auth_secret_0bmk",
+      "secret": true
+    },
+    {
+      "key": "supabase_service_role_api_key_13c7",
+      "secret": true
+    },
+    {
+      "key": "supabase_service_role_api_key_0mr2",
+      "secret": true
+    },
+    {
+      "key": "auth_secret_0sbm",
+      "secret": true
+    },
+    {
+      "key": "supabase_service_role_api_key_0sbm",
+      "secret": true
+    },
+    {
+      "key": "supabase_service_role_api_key_07wg",
+      "secret": true
+    }
+  ]
+}
