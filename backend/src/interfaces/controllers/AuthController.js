@@ -7,7 +7,7 @@ const userRepository = new MongoUserRepository();
 
 export const register = async (req, res, next) => {
   try {
-    console.log('Register called with body:', req.body);
+    //console.log('Register called with body:', req.body);
     const { name, email, password, role } = req.body;
 
     const useCase = new RegisterUser(userRepository);
