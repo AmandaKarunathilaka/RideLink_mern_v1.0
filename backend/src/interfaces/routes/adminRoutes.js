@@ -24,4 +24,4 @@ router.put('/cancel-ride/:id',       adminCancelRide);
 router.get('/all-bookings',          getAllBookings);
 router.get('/stats',                 getStats);
 
-export default router; //mount to main express app
+export default router; //mounted to main express app
