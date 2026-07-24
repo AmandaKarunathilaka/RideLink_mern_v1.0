@@ -557,7 +557,7 @@ const AdminDashboard = () => {
                       )}
                     </div>
                   );
-                } else if (previewDoc.licenseDocument.startsWith('data:')) {
+                } else if (previewDoc.licenseDocument.startsWith('data:')) { // if it's an image directly display
                   return (
                     <img
                       src={previewDoc.licenseDocument}

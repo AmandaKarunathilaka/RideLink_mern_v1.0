@@ -3,6 +3,7 @@ import MongoRideRepository    from '../../infrastructure/repositories/MongoRideR
 import MongoBookingRepository from '../../infrastructure/repositories/MongoBookingRepository.js';
 import AppError               from '../../domain/errors/AppError.js';
 
+//create instance of each repo - to interact with mongodb
 const userRepository    = new MongoUserRepository();
 const rideRepository    = new MongoRideRepository();
 const bookingRepository = new MongoBookingRepository();
@@ -48,7 +49,7 @@ export const getAllUsers = async (req, res, next) => {
     res.status(200).json({
       success: true,
       count:   users.length,
-      users:   users.map(u => u.toSafeObject()),
+      users:   users.map(u => u.toSafeObject()), // toSafeobject - hide sensitive fields
     });
   } catch (error) { next(error); }
 };
