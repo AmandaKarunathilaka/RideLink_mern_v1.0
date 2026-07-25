@@ -1,7 +1,8 @@
 import jwt from 'jsonwebtoken';
 
+//used to sign token by jwt scret key
 class JwtService {
-  static generateToken(payload) {
+  static generateToken(payload) { //payload - user data
     return jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRES_IN || '7d',
     });
