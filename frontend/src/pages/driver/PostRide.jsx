@@ -1,15 +1,15 @@
-import { useState } from 'react';
+import { useState } from 'react'; // useState to manage form and loading state
 import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
+import toast from 'react-hot-toast'; // show success/error notifications 
 import { useAuth } from '../../context/AuthContext.jsx';
-import { postRideApi } from '../../api/rideApi.js';
+import { postRideApi } from '../../api/rideApi.js'; // call to backend to create a ride 
 
 const PostRide = () => {
-  const { user }   = useAuth();
+  const { user }   = useAuth(); //get current user(driver)
   const navigate   = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); //loading - disable submit button while posting 
 
-  const [form, setForm] = useState({
+  const [form, setForm] = useState({ // form - hold ride details 
     origin:      '',
     destination: '',
     date:        '',
@@ -20,6 +20,7 @@ const PostRide = () => {
     notes:       '',
   });
 
+  // update a single field in for state 
   const update = (key, value) => setForm(prev => ({ ...prev, [key]: value }));
 
   const handleSubmit = async (e) => {
@@ -35,6 +36,7 @@ const PostRide = () => {
       return;
     }
 
+    // call api to post ride 
     setLoading(true);
     try {
       await postRideApi({
@@ -47,7 +49,7 @@ const PostRide = () => {
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to post ride');
     } finally {
-      setLoading(false);
+      setLoading(false); // reset loading state
     }
   };
 
@@ -180,7 +182,7 @@ const PostRide = () => {
               min="0"
               style={inputStyle}
               placeholder="850"
-              value={form.price}
+              value={form.price} //db storing part
               onChange={e => update('price', e.target.value)}
             />
           </div>
@@ -212,7 +214,7 @@ const PostRide = () => {
 
         <button
           type="submit"
-          disabled={loading}
+          disabled={loading} // disable button when loading 
           style={{
             width: '100%',
             padding: '14px',

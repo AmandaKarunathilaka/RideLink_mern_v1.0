@@ -17,7 +17,7 @@ const statusColors = {
 
 // ── Bookings Modal ──
 const BookingsModal = ({ ride, onClose }) => {
-  const [bookings, setBookings] = useState([]);
+  const [bookings, setBookings] = useState([]); // list bookings for particular ride 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -35,6 +35,8 @@ const BookingsModal = ({ ride, onClose }) => {
       onClick={onClose}
       style={{ position: 'fixed', inset: 0, background: 'rgba(15,23,42,0.55)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}
     >
+
+      // white cards shows 
       <div
         onClick={e => e.stopPropagation()}
         style={{ background: 'white', borderRadius: 20, padding: 28, maxWidth: 560, width: '100%', maxHeight: '85vh', overflowY: 'auto' }}
@@ -70,7 +72,7 @@ const BookingsModal = ({ ride, onClose }) => {
         </div>
 
         {/* Bookings list */}
-        {loading ? (
+        {loading ? ( // show loading if bookings are loading
           <div style={{ textAlign: 'center', padding: 32, color: '#94a3b8', ...fontBody }}>Loading...</div>
         ) : bookings.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '32px 0' }}>
@@ -142,12 +144,14 @@ const RideCard = ({ ride, onViewBookings, onCancel, cancelling }) => {
   const isPast = ride.date < today;
   const [showConfirm, setShowConfirm] = useState(false);
 
+  // formating ride date 
   const rideDate = new Date(ride.date).toLocaleDateString('en-US', {
     weekday: 'short', month: 'short', day: 'numeric',
   });
 
   return (
     <div style={{ background: 'white', border: '1px solid #e8edf5', borderRadius: 18, overflow: 'hidden', opacity: ride.status === 'cancelled' ? 0.7 : 1 }}>
+      
       {/* Top */}
       <div style={{ background: ride.status === 'cancelled' ? '#f8faff' : 'linear-gradient(135deg,#0a0f1e,#0d1b3e)', padding: '18px 22px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -248,7 +252,7 @@ const DriverDashboard = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  const [rides, setRides] = useState([]);
+  const [rides, setRides] = useState([]); // rides- list of drivers rides
   const [loading, setLoading] = useState(true);
   const [cancellingId, setCancellingId] = useState(null);
   const [selectedRide, setSelectedRide] = useState(null);
@@ -303,7 +307,7 @@ const DriverDashboard = () => {
         <div style={{ background: 'white', borderRadius: 20, padding: '24px 28px', marginBottom: 20, border: '1px solid #e8edf5', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 14 }}>
           <div>
             <p style={{ ...fontBody, fontSize: 13, color: '#94a3b8', marginBottom: 4 }}>
-              {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
+              {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })} // show today's date 
             </p>
             <h1 style={{ ...fontHead, fontSize: 24, fontWeight: 800, color: '#0f172a', marginBottom: 2 }}>
               Driver Dashboard 🚗
@@ -385,11 +389,13 @@ const DriverDashboard = () => {
                   onClick={() => setFilter(t.value)}
                   style={{ padding: '6px 12px', borderRadius: 8, border: 'none', background: filter === t.value ? 'white' : 'transparent', color: filter === t.value ? '#0f172a' : '#64748b', fontWeight: filter === t.value ? 600 : 400, fontSize: 12, cursor: 'pointer', ...fontBody, boxShadow: filter === t.value ? '0 1px 4px rgba(15,23,42,0.08)' : 'none' }}
                 >
-                  {t.label} {t.count > 0 && <span style={{ fontSize: 10, opacity: 0.7 }}>({t.count})</span>}
+                  {t.label} {t.count > 0 && <span style={{ fontSize: 10, opacity: 0.7 }}>({t.count})</span>} // show counts for each category
                 </button>
               ))}
             </div>
           </div>
+
+          // Ride list rendering
 
           {loading ? (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -436,7 +442,7 @@ const DriverDashboard = () => {
       {/* Bookings Modal */}
       {selectedRide && (
         <BookingsModal
-          ride={selectedRide}
+          ride={selectedRide} // ride slect and open bookings model -  allow driver to view passenger booked rides 
           onClose={() => setSelectedRide(null)}
         />
       )}

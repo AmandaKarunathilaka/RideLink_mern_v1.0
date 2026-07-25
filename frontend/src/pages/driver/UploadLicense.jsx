@@ -6,10 +6,10 @@ import { uploadLicenseApi }    from '../../api/driverApi.js';
 
 const UploadLicense = () => {
   const [file,        setFile]        = useState(null);
-  const [preview,     setPreview]     = useState(null);
+  const [preview,     setPreview]     = useState(null); //preview - preview URL 
   const [loading,     setLoading]     = useState(false);
-  const [dragOver,    setDragOver]    = useState(false);
-  const fileInputRef = useRef(null);
+  const [dragOver,    setDragOver]    = useState(false); // dragOVer - highlight dropzone when dragging 
+  const fileInputRef = useRef(null); // reference to hidden file input 
   const { user, login }     = useAuth();
   const navigate     = useNavigate();
 
@@ -23,11 +23,13 @@ const UploadLicense = () => {
       toast.error('File size must be less than 5MB');
       return;
     }
+
+    // generate preview for images and set pdf maker for pdfs 
     setFile(selectedFile);
     if (selectedFile.type !== 'application/pdf') {
       setPreview(URL.createObjectURL(selectedFile));
     } else {
-      setPreview('pdf');
+      setPreview('pdf'); 
     }
   };
 
@@ -44,8 +46,8 @@ const UploadLicense = () => {
       return;
     }
 
-    const formData = new FormData();
-    formData.append('license', file);
+    const formData = new FormData(); 
+    formData.append('license', file);// wrap file in FormData for API upload
 
     setLoading(true);
     try {
