@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
-    <footer className="bg-white border-t border-gray-200 mt-auto">
+    <footer className="bg-white border-t border-gray-200 mt-auto"> //mt-auto means push footer to bottom in flex layout 
       <div className="max-w-6xl mx-auto px-4 py-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
@@ -52,7 +52,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-gray-100 mt-8 pt-6 flex flex-col md:flex-row items-center justify-between gap-2">
           <p className="text-xs text-gray-400">
-            © {new Date().getFullYear()} RideLink. All rights reserved.
+            © {new Date().getFullYear()} RideLink 2026. All rights reserved.
           </p>
           <p className="text-xs text-gray-400">
             Built with React · Node.js · MongoDB
