@@ -5,8 +5,8 @@ import './HomeStyles.css';
 
 const AnimatedCounter = ({ target, suffix = '' }) => {
   const [count, setCount] = useState(0);
-  const ref = useRef(null);
-  const started = useRef(false);
+  const ref = useRef(null); // track when the element is visible on screen
+  const started = useRef(false); // ensure animation runs only once 
 
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
@@ -25,12 +25,13 @@ const AnimatedCounter = ({ target, suffix = '' }) => {
     return () => observer.disconnect();
   }, [target]);
 
+  //display animated numbers with suffix 
   return <span ref={ref}>{count.toLocaleString()}{suffix}</span>;
 };
 
 const Home = () => {
   const [visible, setVisible] = useState({});
-  const [floatRides, setFloatRides] = useState([]);
+  const [floatRides, setFloatRides] = useState([]); //store ride fetched from api 
 
   // Fetch real rides for floating cards
   useEffect(() => {

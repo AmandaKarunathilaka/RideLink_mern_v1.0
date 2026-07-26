@@ -69,7 +69,7 @@ class Ride {
 
   isActive()    { return this.status === 'active'; }
   isFull()      { return this.seatsLeft <= 0; }
-  hasSeats(n=1) { return this.seatsLeft >= n; }
+  hasSeats(n=1) { return this.seatsLeft >= n; } // check n seats availablility 
 }
 
 export default Ride;

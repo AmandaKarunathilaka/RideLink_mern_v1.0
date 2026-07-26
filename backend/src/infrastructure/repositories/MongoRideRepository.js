@@ -31,6 +31,7 @@ class MongoRideRepository extends IRideRepository {
     });
   }
 
+  // create new ride document 
   async save(ride) {
     const doc = await RideModel.create({
       driver:      ride.driver,
@@ -92,7 +93,7 @@ class MongoRideRepository extends IRideRepository {
     const docs = await RideModel.find(query)
       .populate('driver', 'name rating totalReviews profileImage isVerified phone')
       .sort(sort)
-      .limit(filters.limit || 50);
+      .limit(filters.limit || 50); // limit result
 
     return docs.map(d => this._toEntity(d));
   }
@@ -100,13 +101,13 @@ class MongoRideRepository extends IRideRepository {
   async update(id, data) {
     const doc = await RideModel.findByIdAndUpdate(id, data, { new: true })
       .populate('driver', 'name rating totalReviews profileImage');
-    return this._toEntity(doc);
+    return this._toEntity(doc); // return updated entity
   }
 
   async decrementSeats(id, count = 1) {
     const doc = await RideModel.findOneAndUpdate(
       { _id: id, seatsLeft: { $gte: count } },
-      { $inc: { seatsLeft: -count } },
+      { $inc: { seatsLeft: -count } }, // atomic update here 
       { new: true }
     );
     return this._toEntity(doc);

@@ -11,7 +11,7 @@ const rideRepository = new MongoRideRepository();
 // POST /api/rides
 export const postRide = async (req, res, next) => {
   try {
-    console.log('Posting ride for user:', req.user.id, req.user.name);
+    //console.log('Posting ride for user:', req.user.id, req.user.name);
     const useCase = new PostRide(rideRepository);
     const ride    = await useCase.execute(req.user.id, req.body);
 
@@ -44,7 +44,7 @@ export const searchRides = async (req, res, next) => {
 // GET /api/rides/today
 export const getTodaysRides = async (req, res, next) => {
   try {
-    const limit   = req.query.limit ? parseInt(req.query.limit) : 6;
+    const limit   = req.query.limit ? parseInt(req.query.limit) : 6; // 6 -  default
     const useCase = new GetTodaysRides(rideRepository);
     const rides   = await useCase.execute(limit);
 
