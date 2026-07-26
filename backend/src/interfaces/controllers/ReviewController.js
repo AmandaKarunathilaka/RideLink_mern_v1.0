@@ -5,6 +5,7 @@ import MongoBookingRepository from '../../infrastructure/repositories/MongoBooki
 import MongoUserRepository    from '../../infrastructure/repositories/MongoUserRepository.js';
 import AppError            from '../../domain/errors/AppError.js';
 
+//repo instances
 const reviewRepository  = new MongoReviewRepository();
 const bookingRepository = new MongoBookingRepository();
 const userRepository    = new MongoUserRepository();
