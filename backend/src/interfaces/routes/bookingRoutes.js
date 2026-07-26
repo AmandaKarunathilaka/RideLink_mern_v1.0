@@ -12,6 +12,7 @@ import MongoBookingRepository from '../../infrastructure/repositories/MongoBooki
 const router            = express.Router();
 const bookingRepository = new MongoBookingRepository();
 
+//all routes require authentication
 router.use(protect);
 
 // Auto-complete past bookings
@@ -44,10 +45,10 @@ router.post('/',               authorize('passenger'), bookRide);
 router.get('/my-bookings',     authorize('passenger'), getMyBookings);
 router.put('/:id/cancel',      authorize('passenger'), cancelBooking);
 
-// Shared
+// Shared - view booking details 
 router.get('/:id',             getBookingById);
 
-// Driver route
+// Driver route - driver can view all bookings for their ride
 router.get('/ride/:rideId',    authorize('driver'), getRideBookings);
 
 export default router;

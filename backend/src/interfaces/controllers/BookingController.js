@@ -63,7 +63,7 @@ export const getBookingById = async (req, res, next) => {
 // PUT /api/bookings/:id/cancel
 export const cancelBooking = async (req, res, next) => {
   try {
-    const useCase = new CancelBooking(bookingRepository, rideRepository);
+    const useCase = new CancelBooking(bookingRepository, rideRepository); // execute cancelbooking usecase
     const booking = await useCase.execute(req.params.id, req.user.id);
 
     res.status(200).json({

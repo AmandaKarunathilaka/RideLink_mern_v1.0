@@ -2,9 +2,9 @@ import Booking  from '../../domain/entities/Booking.js';
 import AppError from '../../domain/errors/AppError.js';
 
 class BookRide {
-  constructor(bookingRepository, rideRepository) {
-    this.bookingRepository = bookingRepository;
-    this.rideRepository    = rideRepository;
+  constructor(bookingRepository, rideRepository) { //instance of MongoBookingRepository and MongoRideRepository
+    this.bookingRepository = bookingRepository; //handle bookind data
+    this.rideRepository    = rideRepository; 
   }
 
   async execute(passengerId, rideId, seatsBooked = 1) {
