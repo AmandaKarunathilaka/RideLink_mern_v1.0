@@ -5,8 +5,8 @@ import './HomeStyles.css';
 
 const AnimatedCounter = ({ target, suffix = '' }) => {
   const [count, setCount] = useState(0);
-  const ref = useRef(null); // track when the element is visible on screen
-  const started = useRef(false); // ensure animation runs only once 
+  const ref = useRef(null); 
+  const started = useRef(false); 
 
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
@@ -25,19 +25,18 @@ const AnimatedCounter = ({ target, suffix = '' }) => {
     return () => observer.disconnect();
   }, [target]);
 
-  //display animated numbers with suffix 
   return <span ref={ref}>{count.toLocaleString()}{suffix}</span>;
 };
 
 const Home = () => {
   const [visible, setVisible] = useState({});
-  const [floatRides, setFloatRides] = useState([]); //store ride fetched from api 
+  const [floatRides, setFloatRides] = useState([]);  
 
   // Fetch real rides for floating cards
   useEffect(() => {
     getTodaysRidesApi(2)
       .then(res => setFloatRides(res.data.rides || []))
-      .catch(() => {}); // silently fail — fallback to static cards
+      .catch(() => {}); 
   }, []);
 
   useEffect(() => {
@@ -50,7 +49,6 @@ const Home = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Use real ride data if available, otherwise fall back to static
   const card1 = floatRides[0] || null;
   const card2 = floatRides[1] || null;
 
