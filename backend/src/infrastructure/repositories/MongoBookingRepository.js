@@ -42,7 +42,6 @@ class MongoBookingRepository extends IBookingRepository {
     });
   }
 
-  //create a new booking
   async save(booking) {
     const doc = await BookingModel.create({
       passenger:   booking.passenger,
@@ -82,7 +81,6 @@ class MongoBookingRepository extends IBookingRepository {
     return docs.map(d => this._toEntity(d));
   }
 
-  //check already passenger booked that ride or not
   async findExisting(passengerId, rideId) {
     const doc = await BookingModel.findOne({
       passenger: passengerId,
@@ -101,7 +99,7 @@ class MongoBookingRepository extends IBookingRepository {
     return this._toEntity(doc);
   }
 
-  // this is for admin usage 
+ 
   async findAll() {
     const docs = await BookingModel.find()
       .populate('passenger', 'name email')

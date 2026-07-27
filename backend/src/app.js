@@ -14,7 +14,7 @@ import reviewRoutes   from './interfaces/routes/reviewRoutes.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname  = path.dirname(__filename);
 
-const app = express(); // instance of express app
+const app = express(); 
 
 app.use(cors({
   origin: [

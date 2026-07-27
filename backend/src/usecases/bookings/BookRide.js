@@ -2,8 +2,8 @@ import Booking  from '../../domain/entities/Booking.js';
 import AppError from '../../domain/errors/AppError.js';
 
 class BookRide {
-  constructor(bookingRepository, rideRepository) { //instance of MongoBookingRepository and MongoRideRepository
-    this.bookingRepository = bookingRepository; //handle bookind data
+  constructor(bookingRepository, rideRepository) { 
+    this.bookingRepository = bookingRepository; 
     this.rideRepository    = rideRepository; 
   }
 

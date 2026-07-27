@@ -44,7 +44,7 @@ export const searchRides = async (req, res, next) => {
 // GET /api/rides/today
 export const getTodaysRides = async (req, res, next) => {
   try {
-    const limit   = req.query.limit ? parseInt(req.query.limit) : 6; // 6 -  default
+    const limit   = req.query.limit ? parseInt(req.query.limit) : 6; 
     const useCase = new GetTodaysRides(rideRepository);
     const rides   = await useCase.execute(limit);
 

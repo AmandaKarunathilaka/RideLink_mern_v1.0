@@ -245,14 +245,14 @@ const Search = () => {
               </div>
             </div>
 
-            //button to swap from - to values 
+            
             <div className="src-swap-btn" onClick={() => { const t=from; setFrom(to); setTo(t); }}>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path d="M3 6l3-3 3 3M6 3v9M10 10l3 3 3-3M13 13V4" stroke="#2563eb" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>
 
-            //input for destination
+            
             <div className="src-search-field">
               <svg className="src-search-field-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path d="M8 2C5.239 2 3 4.239 3 7c0 3.5 5 9 5 9s5-5.5 5-9c0-2.761-2.239-5-5-5z" stroke="#94a3b8" strokeWidth="1.3"/>
@@ -274,7 +274,7 @@ const Search = () => {
               </div>
             </div>
 
-            <div className="src-search-divider" /> // visual seperator between fields
+            <div className="src-search-divider" /> 
 
             <div className="src-search-field">
               <svg className="src-search-field-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -288,14 +288,14 @@ const Search = () => {
                   className="src-search-input"
                   value={date}
                   onChange={e => setDate(e.target.value)}
-                  min={new Date().toISOString().split('T')[0]} // can't pick a past date 
+                  min={new Date().toISOString().split('T')[0]}  
                 />
               </div>
             </div>
 
             <div className="src-search-divider" />
 
-            //Seat field
+            
             <div className="src-search-field seats-field">
               <svg className="src-search-field-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <circle cx="8" cy="5" r="2.5" stroke="#94a3b8" strokeWidth="1.3"/>
@@ -311,7 +311,7 @@ const Search = () => {
               </div>
             </div>
 
-            //Search btn
+            
             <button className="src-search-btn" onClick={handleSearch}>
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
                 <circle cx="8" cy="8" r="5.5" stroke="white" strokeWidth="1.5"/>
@@ -325,7 +325,7 @@ const Search = () => {
 
       <div className="src-body">
 
-        <aside className={`src-sidebar ${showFilters ? 'open' : ''}`}> //showFilters - toggle open/close state
+        <aside className={`src-sidebar ${showFilters ? 'open' : ''}`}> 
           <div className="src-sidebar-header">
             <h3 className="src-sidebar-title">Filters</h3>
             <button className="src-clear-btn" onClick={clearFilters}>
@@ -340,7 +340,7 @@ const Search = () => {
               <span>LKR {priceRange[1].toLocaleString()}</span>
             </div>
 
-            //slider to adjust max priceS
+            
             <div className="src-range-wrap">
               <input
                 type="range" min="0" max="2000" step="50"
@@ -352,7 +352,7 @@ const Search = () => {
               />
             </div>
 
-            //price filter btnS
+            
             <div className="src-price-presets">
               {[[0,500],[0,1000],[0,1500]].map(([mn,mx]) => (
                 <button
@@ -366,7 +366,7 @@ const Search = () => {
             </div>
           </div>
           
-          //filter departure time 
+          
           <div className="src-filter-group">
             <label className="src-filter-label">Departure time</label>
             <div className="src-time-options">
@@ -382,7 +382,7 @@ const Search = () => {
             </div>
           </div>
 
-          //sort by filterS
+          
           <div className="src-filter-group">
             <label className="src-filter-label">Sort by</label>
             <div className="src-sort-options">
@@ -438,7 +438,7 @@ const Search = () => {
             </div>
           </div>
 
-          //Results set
+          
           {loading ? (
             <div className="src-cards-list">
               {[1,2,3].map(i => (

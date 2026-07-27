@@ -49,7 +49,7 @@ const PostRide = () => {
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to post ride');
     } finally {
-      setLoading(false); // reset loading state
+      setLoading(false); 
     }
   };
 
@@ -214,7 +214,7 @@ const PostRide = () => {
 
         <button
           type="submit"
-          disabled={loading} // disable button when loading 
+          disabled={loading}  
           style={{
             width: '100%',
             padding: '14px',

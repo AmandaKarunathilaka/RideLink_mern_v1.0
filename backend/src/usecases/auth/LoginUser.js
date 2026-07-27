@@ -21,7 +21,6 @@ class LoginUser {
       throw new AppError('Invalid email or password', 401);
     }
 
-    // Return User entity instead of plain object
     return new User({
       id:            doc._id.toString(),
       name:          doc.name,

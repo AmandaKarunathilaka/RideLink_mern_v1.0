@@ -41,7 +41,6 @@ class MongoReviewRepository extends IReviewRepository {
     return docs.map(d => this._toEntity(d));
   }
 
-  //fetch reviews for a booking
   async findByBooking(bookingId) {
     const doc = await ReviewModel.findOne({ booking: bookingId });
     return this._toEntity(doc);
@@ -61,7 +60,6 @@ class MongoReviewRepository extends IReviewRepository {
     return this._toEntity(doc);
   }
 
-  //for admin usage
   async findAll() {
     const docs = await ReviewModel.find()
       .populate('passenger', 'name')

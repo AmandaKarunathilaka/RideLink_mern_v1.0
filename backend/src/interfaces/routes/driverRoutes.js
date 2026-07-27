@@ -5,7 +5,6 @@ import upload                         from '../../infrastructure/fileUpload/mult
 
 const router = express.Router();
 
-// All routes require login + driver role
 router.use(protect);
 router.use(authorize('driver'));
 

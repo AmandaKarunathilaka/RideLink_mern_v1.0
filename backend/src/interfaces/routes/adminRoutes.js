@@ -10,12 +10,10 @@ import {
 } from '../controllers/AdminController.js';
 import { protect, authorize } from '../middleware/authMiddleware.js';
 
-const router = express.Router(); // new express route instance 
-
-router.use(protect); // apply protect middleware to all routes
+const router = express.Router(); 
+router.use(protect); 
 router.use(authorize('admin'));
 
-//restricted these routes only can access by admins
 router.get('/pending-licenses',      getPendingLicenses);
 router.put('/verify-driver/:id',     verifyDriver);
 router.get('/all-users',             getAllUsers);
@@ -24,4 +22,4 @@ router.put('/cancel-ride/:id',       adminCancelRide);
 router.get('/all-bookings',          getAllBookings);
 router.get('/stats',                 getStats);
 
-export default router; //mounted to main express app
+export default router; 

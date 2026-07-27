@@ -17,7 +17,7 @@ const statusColors = {
 
 // ── Bookings Modal ──
 const BookingsModal = ({ ride, onClose }) => {
-  const [bookings, setBookings] = useState([]); // list bookings for particular ride 
+  const [bookings, setBookings] = useState([]); 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -72,7 +72,7 @@ const BookingsModal = ({ ride, onClose }) => {
         </div>
 
         {/* Bookings list */}
-        {loading ? ( // show loading if bookings are loading
+        {loading ? ( 
           <div style={{ textAlign: 'center', padding: 32, color: '#94a3b8', ...fontBody }}>Loading...</div>
         ) : bookings.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '32px 0' }}>
@@ -252,7 +252,7 @@ const DriverDashboard = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  const [rides, setRides] = useState([]); // rides- list of drivers rides
+  const [rides, setRides] = useState([]); 
   const [loading, setLoading] = useState(true);
   const [cancellingId, setCancellingId] = useState(null);
   const [selectedRide, setSelectedRide] = useState(null);
@@ -389,13 +389,12 @@ const DriverDashboard = () => {
                   onClick={() => setFilter(t.value)}
                   style={{ padding: '6px 12px', borderRadius: 8, border: 'none', background: filter === t.value ? 'white' : 'transparent', color: filter === t.value ? '#0f172a' : '#64748b', fontWeight: filter === t.value ? 600 : 400, fontSize: 12, cursor: 'pointer', ...fontBody, boxShadow: filter === t.value ? '0 1px 4px rgba(15,23,42,0.08)' : 'none' }}
                 >
-                  {t.label} {t.count > 0 && <span style={{ fontSize: 10, opacity: 0.7 }}>({t.count})</span>} // show counts for each category
+                  {t.label} {t.count > 0 && <span style={{ fontSize: 10, opacity: 0.7 }}>({t.count})</span>} 
                 </button>
               ))}
             </div>
           </div>
 
-          // Ride list rendering
 
           {loading ? (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -442,7 +441,7 @@ const DriverDashboard = () => {
       {/* Bookings Modal */}
       {selectedRide && (
         <BookingsModal
-          ride={selectedRide} // ride slect and open bookings model -  allow driver to view passenger booked rides 
+          ride={selectedRide} 
           onClose={() => setSelectedRide(null)}
         />
       )}
