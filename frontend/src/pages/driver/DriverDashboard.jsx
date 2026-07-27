@@ -36,7 +36,6 @@ const BookingsModal = ({ ride, onClose }) => {
       style={{ position: 'fixed', inset: 0, background: 'rgba(15,23,42,0.55)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}
     >
 
-      // white cards shows 
       <div
         onClick={e => e.stopPropagation()}
         style={{ background: 'white', borderRadius: 20, padding: 28, maxWidth: 560, width: '100%', maxHeight: '85vh', overflowY: 'auto' }}
@@ -307,7 +306,7 @@ const DriverDashboard = () => {
         <div style={{ background: 'white', borderRadius: 20, padding: '24px 28px', marginBottom: 20, border: '1px solid #e8edf5', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 14 }}>
           <div>
             <p style={{ ...fontBody, fontSize: 13, color: '#94a3b8', marginBottom: 4 }}>
-              {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })} // show today's date 
+              {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}  
             </p>
             <h1 style={{ ...fontHead, fontSize: 24, fontWeight: 800, color: '#0f172a', marginBottom: 2 }}>
               Driver Dashboard 🚗
