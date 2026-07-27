@@ -20,7 +20,6 @@ router.get('/my-rides', protect, authorize('driver'), getMyRides);
 router.post('/',        protect, requireVerifiedDriver, postRide);
 router.put('/:id/cancel', protect, authorize('driver'), cancelRide);
 
-// Generic id route — must be last
 router.get('/:id', getRideById);
 
 export default router;
