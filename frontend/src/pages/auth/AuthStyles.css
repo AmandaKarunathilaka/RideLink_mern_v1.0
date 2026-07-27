@@ -590,7 +590,6 @@
     display: block;
   }
 
-  /* Features now flow naturally below the visible text */
   .auth-features {
     margin-top: 24px;
     gap: 8px;

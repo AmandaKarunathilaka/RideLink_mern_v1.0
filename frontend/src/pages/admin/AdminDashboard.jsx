@@ -33,7 +33,6 @@ const AdminDashboard = () => {
 
   const today = new Date().toISOString().split('T')[0];
 
-  // A ride is "effectively completed" if still active in DB but date has passed
   const isEffectivelyCompleted = (r) =>
     r.status === 'active' && r.date < today;
 
@@ -557,7 +556,7 @@ const AdminDashboard = () => {
                       )}
                     </div>
                   );
-                } else if (previewDoc.licenseDocument.startsWith('data:')) { // if it's an image directly display
+                } else if (previewDoc.licenseDocument.startsWith('data:')) { 
                   return (
                     <img
                       src={previewDoc.licenseDocument}
