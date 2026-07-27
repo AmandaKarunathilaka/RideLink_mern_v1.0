@@ -423,7 +423,7 @@ const Search = () => {
 
             <div className="src-results-actions">
               {activeFilters.length > 0 && (
-                <div className="src-active-filters"> //show active filters as tags
+                <div className="src-active-filters"> 
                   {activeFilters.map((f,i) => (
                     <span key={i} className="src-filter-tag">{f}</span>
                   ))}
