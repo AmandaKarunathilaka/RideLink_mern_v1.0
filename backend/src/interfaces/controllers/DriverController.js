@@ -13,7 +13,6 @@ export const uploadLicense = async (req, res, next) => {
       });
     }
 
-    // Convert buffer to base64 data URI
     const base64 = req.file.buffer.toString('base64');
     const mimeType = req.file.mimetype;
     const dataURI = `data:${mimeType};base64,${base64}`;
